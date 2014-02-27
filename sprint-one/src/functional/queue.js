@@ -7,9 +7,9 @@ var makeQueue = function(){
   // Implement the methods below
   var size = 0;
 
-  instance.enqueue = function(value){ //this would potentially override the property
-    for (var key in storage){
-      storage[key+1] = storage[key];
+  instance.enqueue = function(value){ // would potentially override the property
+    for(var i = size ; i>0 ; i--){
+      storage[i] = storage[i-1];
     }
     storage[0]=value;
     size++;
