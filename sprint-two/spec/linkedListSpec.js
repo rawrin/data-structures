@@ -30,9 +30,7 @@ describe("linkedList", function() {
     linkedList.addToTail(4);
     linkedList.addToTail(5);
     expect(linkedList.head.value).to.equal(4);
-    console.log(linkedList)
     linkedList.removeHead();
-        console.log(linkedList) 
     expect(linkedList.head.value).to.equal(5);
   });
 
@@ -52,4 +50,21 @@ describe("linkedList", function() {
   });
 
   // add more tests here to test the functionality of linkedList
+  it("should designate a new head when new node is added", function(){
+    linkedList.addToTail(3);
+    linkedList.addToHead(4);
+    expect(linkedList.head.value).to.equal(4);
+    expect(linkedList.head.next.value).to.equal(3);
+    expect(linkedList.head.prev).to.equal(null);
+    expect(linkedList.head.next.prev.value).to.equal(4)
+  });
+
+  it("should not contain a value that was removed from the tail, and return the value", function(){
+    linkedList.addToTail(3);
+    linkedList.addToTail(4);
+    linkedList.addToHead(2);
+    expect(linkedList.removeTail()).to.equal(4);
+    assert.isFalse(linkedList.contains(4));
+    expect(linkedList.tail.value).to.equal(3);
+  })
 });
