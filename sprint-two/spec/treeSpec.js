@@ -44,4 +44,16 @@ describe("tree", function() {
     assert.isTrue(tree.contains(8));
   });
 
+  it("should correctly add parent", function(){
+    tree.addChild(5);
+    tree.addChild(6);
+    expect(tree.parent).to.equal(null);
+  })
+
+  it("should disassociate the parent and the child nodes", function(){
+    tree.addChild(5);
+    tree.children[0].addChild(6);
+    tree.children[0].children[0].removeFromParent();
+    expect(tree.children[0].children[0]).to.equal(undefined);
+  })
 });

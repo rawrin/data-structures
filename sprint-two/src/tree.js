@@ -2,6 +2,7 @@ var makeTree = function(value){
   var newTree = Object.create(treeMethods);
   newTree.value = value;
   newTree.children = [];
+  newTree.parent = null;
 
 
   return newTree;
@@ -17,34 +18,29 @@ treeMethods.addChild = function(value){
   node.value = value;
   node.children = [];
   this.children.push(node);
+  node.parent = this;
 };
 
 treeMethods.contains = function(target){
-  
-  //check if initial value ===target;
-  //if value is === target return true
-  //if its not, do the same check for its children;
-  //if any children contain the value, return true
-  //else return false;
-
-
-
-
-  // var check = false || this.value===target;
-
-
-
-  // for (var i = 0 ; i < this.children.length; i ++ ) {
-  //   console.log("Checking if: " + this.children[i].value + ", is equal to: " + target);
-  //     if (!!this.value===target) {
-  //       console.log("It's supposed to be true!");
-  //       return true;
-  //     }
-  //     return this.children[i].contains(target);
-  // };
-  // console.log("Nothing is equal :[");
-  // return check;
+  var check = false;
+  if (this.value === target) {
+      check = true;
+  }
+  for (var i = 0; i < this.children.length ; i ++) {
+    if(check === false){
+      check = this.children[i].contains(target);
+    };
+  };
+  return check;
 };
 
+treeMethods.removeFromParent = function(){
+  //reassigning parent to null;
 
+  //and parent's child to null;
+  //
+  var index = this.parent.children.indexOf(this);
+  this.parent.children[index] = undefined;
+  this.parent = null;
 
+}
