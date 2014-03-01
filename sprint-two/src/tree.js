@@ -35,12 +35,9 @@ treeMethods.contains = function(target){
 };
 
 treeMethods.removeFromParent = function(){
-  //reassigning parent to null;
-
-  //and parent's child to null;
-  //
   var index = this.parent.children.indexOf(this);
   this.parent.children[index] = undefined;
   this.parent = null;
 
+  //whether this should return 'this'
 }
