@@ -2,8 +2,8 @@ var makeBinarySearchTree = function(value) {
   var binaryTree = Object.create(binaryTreeMethods);
 
   binaryTree.value=value;
-  binaryTree.left={};
-  binaryTree.right={};
+  binaryTree.left = Object.create(binaryTreeMethods);
+  binaryTree.right = Object.create(binaryTreeMethods);
 
   return binaryTree;
 };
@@ -39,26 +39,23 @@ binaryTreeMethods.contains = function(value){
   }
   if (check === false){
     if(value > this.value) {
-      check = this.right.contains(value);
+      if(this.right.value!==undefined){
+        check = this.right.contains(value);
+      }
     } else {
-      check = this.left.contains(value);
+      if(this.left.value!==undefined){
+        check = this.left.contains(value);
+      }
     }
   }
-
-
-
   return check;
 };
 
-  //first check the initial value ==== value;
-  //check if value is less than initial value;
-  //go down to the left branch of the tree, and repeat the checking process
-  //
-
-
 binaryTreeMethods.depthFirstLog = function(callback){
-  //equivalent of each
-
-}
-
-
+  callback(this.value);
+  if(this.left.value !== undefined){
+    this.left.depthFirstLog(callback);
+  } else if (this.right.value !== undefined){
+    this.right.depthFirstLog(callback);
+  }
+};
